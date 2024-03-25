@@ -1,49 +1,49 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
-// Reflection activity
-public class ReflectionActivity : MindfulnessActivity
+class ReflectionActivity : Activity
 {
-    public ReflectionActivity(int durationInSeconds) : base(durationInSeconds) { }
-
-    public override void Start()
+    private List<string> _prompts = new List<string>()
     {
-        Console.WriteLine("\nReflection Activity");
-        Console.WriteLine("This activity will help you reflect on times in your life when you have shown strength and resilience.");
-        Console.WriteLine("This will help you recognize the power you have and how you can use it in other aspects of your life.");
-        Console.WriteLine("Duration: " + durationInSeconds + " seconds.");
-        Thread.Sleep(5000); // Pause for preparation
+        "Think of a time when you stood up for someone else.",
+        "Think of a time when you did something really difficult.",
+        "Think of a time when you helped someone in need.",
+        "Think of a time when you did something truly selfless."
+    };
 
-        string[] prompts = {
-            "Think of a time when you stood up for someone else.",
-            "Think of a time when you did something really difficult.",
-            "Think of a time when you helped someone in need.",
-            "Think of a time when you did something truly selfless."
-        };
+    private List<string> _questions = new List<string>()
+    {
+        "Why was this experience meaningful to you?",
+        "Have you ever done anything like this before?",
+        // Add more questions as needed
+    };
 
+    public ReflectionActivity()
+    {
+        _name = "Reflection";
+        _description = "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.";
+        _duration = 120; // Default duration: 120 seconds
+    }
+
+    public override void Run()
+    {
+        base.Run();
+
+        Console.WriteLine("Starting reflection activity...");
+        
         Random random = new Random();
-        for (int i = 0; i < durationInSeconds; i += 10)
+        string prompt = _prompts[random.Next(_prompts.Count)];
+        Console.WriteLine($"Prompt: {prompt}");
+
+        foreach (string question in _questions)
         {
-            string prompt = prompts[random.Next(prompts.Length)];
-            Console.WriteLine("Prompt: " + prompt);
-
-            // Simulating reflection questions
-            // You can add more questions as needed
-            string[] questions = {
-                "Why was this experience meaningful to you?",
-                "Have you ever done anything like this before?",
-                "How did you get started?",
-                "How did you feel when it was complete?",
-                "What made this time different than other times when you were not as successful?"
-            };
-
-            foreach (string question in questions)
-            {
-                Console.WriteLine("Question: " + question);
-                Thread.Sleep(3000); // Pause for reflection
-            }
+            Console.WriteLine(question);
+            Thread.Sleep(2000); // Pause for 2 seconds
+            Console.WriteLine("Showing spinner...");
+            Thread.Sleep(1000); // Pause for 1 second
         }
 
-        EndActivity("Reflection Activity");
+        DisplayEndingMessage();
     }
 }

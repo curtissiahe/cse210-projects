@@ -1,21 +1,43 @@
 using System;
 
-// Main program
 class Program
 {
     static void Main(string[] args)
     {
-        // Example usage
         Console.WriteLine("Welcome to the Mindfulness Program!");
 
-        // Creating instances of activities
-        MindfulnessActivity breathingActivity = new BreathingActivity(60); // 60 seconds
-        MindfulnessActivity reflectionActivity = new ReflectionActivity(60); // 60 seconds
-        MindfulnessActivity listingActivity = new ListingActivity(60); // 60 seconds
+        while (true)
+        {
+            Console.WriteLine("\nMenu:");
+            Console.WriteLine("1. Breathing Activity");
+            Console.WriteLine("2. Reflection Activity");
+            Console.WriteLine("3. Listing Activity");
+            Console.WriteLine("4. Exit");
 
-        // Running activities
-        breathingActivity.Start();
-        reflectionActivity.Start();
-        listingActivity.Start();
+            Console.Write("Enter your choice: ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    BreathingActivity breathingActivity = new BreathingActivity();
+                    breathingActivity.Run();
+                    break;
+                case "2":
+                    ReflectionActivity reflectionActivity = new ReflectionActivity();
+                    reflectionActivity.Run();
+                    break;
+                case "3":
+                    ListingActivity listingActivity = new ListingActivity();
+                    listingActivity.Run();
+                    break;
+                case "4":
+                    Console.WriteLine("Thank you for using the Mindfulness Program. Goodbye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice. Please enter a number from 1 to 4.");
+                    break;
+            }
+        }
     }
 }

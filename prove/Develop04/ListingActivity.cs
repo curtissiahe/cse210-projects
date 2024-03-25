@@ -1,44 +1,45 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
-// Listing activity
-public class ListingActivity : MindfulnessActivity
+class ListingActivity : Activity
 {
-    public ListingActivity(int durationInSeconds) : base(durationInSeconds) { }
-
-    public override void Start()
+    private List<string> _prompts = new List<string>()
     {
-        Console.WriteLine("\nListing Activity");
-        Console.WriteLine("This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
-        Console.WriteLine("Duration: " + durationInSeconds + " seconds.");
-        Thread.Sleep(5000); // Pause for preparation
+        "Who are people that you appreciate?",
+        "What are personal strengths of yours?",
+        // Add more prompts as needed
+    };
 
-        string[] prompts = {
-            "Who are people that you appreciate?",
-            "What are personal strengths of yours?",
-            "Who are people that you have helped this week?",
-            "When have you felt the Holy Ghost this month?",
-            "Who are some of your personal heroes?"
-        };
+    public ListingActivity()
+    {
+        _name = "Listing";
+        _description = "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.";
+        _duration = 90; // Default duration: 90 seconds
+    }
 
+    public override void Run()
+    {
+        base.Run();
+
+        Console.WriteLine("Starting listing activity...");
+        
         Random random = new Random();
-        string prompt = prompts[random.Next(prompts.Length)];
-        Console.WriteLine("Prompt: " + prompt);
-        Console.WriteLine("You have " + durationInSeconds + " seconds to list as many items as you can...");
+        string prompt = _prompts[random.Next(_prompts.Count)];
+        Console.WriteLine($"Prompt: {prompt}");
 
-        // Simulating listing items
-        // You can modify this part as needed
-        int itemCount = 0;
-        while (durationInSeconds > 0)
-        {
-            // Simulating user input (in real program, this would be replaced by actual user input)
-            Thread.Sleep(1000);
-            durationInSeconds--;
-            itemCount++;
-        }
+        Console.WriteLine("You have 5 seconds to start listing...");
 
-        Console.WriteLine("\nNumber of items listed: " + itemCount);
+        Thread.Sleep(5000); // Pause for 5 seconds
 
-        EndActivity("Listing Activity");
+        Console.WriteLine("Time's up!");
+
+        // Simulate user listing items (not implemented in this basic example)
+        // You can add user input here to actually list items
+
+        Console.WriteLine("Displaying the number of items listed...");
+        Thread.Sleep(2000); // Pause for 2 seconds
+
+        DisplayEndingMessage();
     }
 }

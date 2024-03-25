@@ -1,27 +1,34 @@
 using System;
 using System.Threading;
 
-// Breathing activity
-public class BreathingActivity : MindfulnessActivity
+class BreathingActivity : Activity
 {
-    public BreathingActivity(int durationInSeconds) : base(durationInSeconds) { }
-
-    public override void Start()
+    public BreathingActivity()
     {
-        Console.WriteLine("\nBreathing Activity");
-        Console.WriteLine("This activity will help you relax by walking you through breathing in and out slowly.");
-        Console.WriteLine("Clear your mind and focus on your breathing.");
-        Console.WriteLine("Duration: " + durationInSeconds + " seconds.");
-        Thread.Sleep(5000); // Pause for preparation
+        _name = "Breathing";
+        _description = "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.";
+        _duration = 60; // Default duration: 60 seconds
+    }
 
-        for (int i = 0; i < durationInSeconds; i += 2)
+    public override void Run()
+    {
+        base.Run();
+        
+        Console.WriteLine("Starting breathing activity...");
+        Console.WriteLine("Breathe in...");
+        Thread.Sleep(1000); // Pause for 1 second
+        Console.WriteLine("Breathe out...");
+        Thread.Sleep(1000); // Pause for 1 second
+
+        // Continue breathing for the specified duration
+        for (int i = 0; i < _duration - 2; i += 2)
         {
             Console.WriteLine("Breathe in...");
-            Thread.Sleep(1000);
+            Thread.Sleep(1000); // Pause for 1 second
             Console.WriteLine("Breathe out...");
-            Thread.Sleep(1000);
+            Thread.Sleep(1000); // Pause for 1 second
         }
 
-        EndActivity("Breathing Activity");
+        DisplayEndingMessage();
     }
 }
